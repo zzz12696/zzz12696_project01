@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+    联系我们
+{% endblock title %}
+
+{% block content %}
+    <div class="container text-center" style="min-height: 600px;">
+        <h3>联系我们</h3>
+        <h4>邮箱：1269619593@qq.com</h4>
+        <h4>GitHub：<a href="https://github.com/zzz12696" target="_blank">https://github.com/zzz12696</a></h4>
+        <br/>
+        <h4>友情链接</h4>
+        <p><a href="http://www.liujiangblog.com/" target="_blank">刘江的博客及教程</a></p>
+        <br/>
+        <br/>
+        <a class="btn btn-primary" href="{% url 'blog:blog_index' %}">返回首页</a>
+    </div>
+{% endblock content %}

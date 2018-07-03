@@ -1,0 +1,166 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% load comments %}
+
+{% block title %}
+    博客详细页面
+{% endblock title %}
+
+{% block css %}
+    <link href="{% static 'github.css' %}" rel="stylesheet"/>
+{% endblock css %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h1>{{ entry.title }}</h1>
+                <p>
+                    <strong>{{ entry.author }}</strong>
+                    &nbsp;&nbsp;&nbsp;&nbsp;{{ entry.created_time|date:'Y年m月d日' }}
+                    &nbsp;&nbsp;&nbsp;&nbsp;分类：
+                    {% for category in entry.category.all %}
+                        &nbsp;&nbsp;<a href="{% url 'blog:blog_category' category.id %}">{{ category.name }}</a>
+                    {% endfor %}
+                    &nbsp;&nbsp;&nbsp;&nbsp;标签：
+                    {% for tag in entry.tags.all %}
+                        &nbsp;&nbsp;<a href="{% url 'blog:blog_tag' tag.id %}">{{ tag.name }}</a>&nbsp;&nbsp;
+                    {% endfor %}
+                    &nbsp;&nbsp;&nbsp;&nbsp;浏览量：{{ entry.visiting }}
+                </p>
+
+                {% if entry.img %}
+                    <img src="{{ entry.img.url }}" class="img-rounded" style="width: 600px; height: 300px;"/>
+                {% else %}
+                {% endif %}
+                <hr/>
+                <p>
+                    {{ entry.body|safe }}
+                </p>
+
+                <div class="row">
+                    <hr/>
+                    {% get_comment_form for entry as form %}
+                    {% get_comment_count for entry as comment_count %}
+                    <h3>评论总数：{{ comment_count }}</h3>
+                    <hr/>
+                </div>
+
+                {#                评论框#}
+                {% if request.session.login or request.user.is_authenticated %}
+                    <div class="row">
+                        <form class="form-horizontal" action="{% comment_form_target %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="input_title" class="pull-left control-label">评论标题：</label>
+                                <div class="col-md-6">
+                                    <input class="form-control" name="comment_title" id="input_title"
+                                           placeholder="请输入标题"
+                                           required type="text">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="input_comment" class="pull-left control-label">评论内容：</label>
+                                <div class="col-md-6">
+                                <textarea style="resize: none;" class="form-control" rows="6" name="comment"
+                                          id="input_comment" placeholder="请输入评论内容" required></textarea>
+                                </div>
+                            </div>
+
+                            <span style="display: none;">{{ form.honeypot }}</span>
+                            {{ form.content_type }}
+                            {{ form.object_pk }}
+                            {{ form.timestamp }}
+                            {{ form.security_hash }}
+                            <input type="hidden" name="next" value="{% url 'blog:blog_detail' entry.id %}"/>
+                            <input name="parent_id" type="hidden" value="-1"/>
+                            <input name="level" type="hidden" value="0"/>
+
+
+                            <div class="form-group col-md-7">
+                                <div class="pull-left" style="margin-left: 68px;">
+                                    <button type="reset" class="btn btn-default"><span
+                                            class="glyphicon glyphicon-repeat"></span>&nbsp;&nbsp;重置
+                                    </button>
+                                </div>
+
+                                <div class="pull-right" style="margin-right: 12px;">
+                                    <button type="submit" class="btn btn-success"><span
+                                            class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;提交
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                {% else %}
+                    <h4>登陆后才可以评论</h4>
+                {% endif %}
+                <hr/>
+
+                {#                评论显示区#}
+                <div class="row">
+                    {% for comment in comment_list %}
+                        <div class="single_comment" style="margin-left: {{ comment.level }}em; margin-bottom: 20px;">
+                            <div>
+                                {% if comment.user_img %}
+                                    <img src="{{ comment.user_img }}" alt="user_image"
+                                         style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden; float: left; margin-left: 10px; margin-top: 5px;">
+                                {% else %}
+                                    <img src="/media/blog_images/default_user_image.jpg"
+                                         style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden; float: left; margin-left: 10px; margin-top: 5px;">
+                                {% endif %}
+                            </div>
+
+                            <div class="col-md-11 comment-content"
+                                 style="margin-bottom: 10px; border-bottom: 1px dashed lightgray; border-left: 1px dashed #2d7da4; padding-bottom: 5px;">
+                                <strong>{{ comment.comment_title }}</strong>
+                                <div>
+                                    {% if comment.parent_comment %}
+                                        {% if comment.user_name %}
+                                            {{ comment.user_name }}
+                                        {% else %}
+                                            {{ request.user }}
+                                        {% endif %}
+                                        <i class="glyphicon glyphicon-share-alt"></i>
+                                        {{ comment.parent_comment.user_name }}
+                                        {{ request.user }}
+                                    {% else %}
+                                        By&nbsp;&nbsp;
+                                        {% if comment.user_name %}
+                                            {{ comment.user_name }}
+                                        {% else %}
+                                            {{ request.user }}
+                                        {% endif %}
+                                        &nbsp;&nbsp;&nbsp;On&nbsp;&nbsp;
+                                    {% endif %}
+                                    <em>{{ comment.submit_date }}</em>
+                                    &nbsp;&nbsp;&nbsp;
+                                    {% if request.session.login or request.user.is_authenticated %}
+                                    <a href="{% url 'blog:comment_reply' comment.id %}">回复</a>
+                                    {% endif %}
+                                </div>
+                                <br/>
+                                <p style="margin-bottom: 0px;">{{ comment.comment }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+                {% block toc %}
+
+                    <div class="row">
+                        <div class="widget">
+                            <h3>博客目录</h3>
+                            {{ entry.toc|safe }}
+                        </div>
+                    </div>
+                {% endblock toc %}
+                {% include 'blog/right_side_bar.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,51 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+    博客首页
+{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                {% if entries %}
+                    {% for entry in entries %}
+                        <br/>
+                        <h2><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h2>
+
+                        <p>
+                            <span>&nbsp;作者：{{ entry.author }}</span>
+                            <span>&nbsp;发表时间：{{ entry.created_time }}</span>
+                            <span>&nbsp;浏览量：{{ entry.visiting }}</span>
+                        </p>
+
+                        {% if entry.img %}
+                            <img src="{{ entry.img.url }}" class="img-rounded" style="width: 400px; height: 200px;"/>
+                        {% else %}
+                        {% endif %}
+
+                        {% if entry.abstract %}
+                            <p>{{ entry.abstract }}</p>
+                        {% else %}
+                            <p>{{ entry.body|truncatechars:128 }}</p>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-info" role="alert">{{ error_msg }}</div>
+                {% endif %}
+
+                <hr/>
+
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {{ page_html|safe }}
+                    </ul>
+                </nav>
+
+            </div>
+            <div class="col-md-3">
+                {% include 'blog/right_side_bar.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

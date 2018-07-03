@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+    关于博主
+{% endblock title %}
+
+{% block content %}
+    <div class="container text-center" style="min-height: 600px;">
+        <h3>关于博主</h3>
+        <h4>一个 Python 小白 + Django 小白 + 爬虫小白</h4>
+        <br/>
+        <h3>关于本站</h3>
+        <h4>使用 Python + Django + bootstrap + MySQL + Django-comments 搭建</h4>
+        <br/>
+        <br/>
+        <a class="btn btn-primary" href="{% url 'blog:blog_index' %}">返回首页</a>
+    </div>
+{% endblock content %}
