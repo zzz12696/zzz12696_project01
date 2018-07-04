@@ -160,7 +160,7 @@ def login(request):
     if code is None:
         return redirect('/blog/')
 
-    access_token_url = 'https://api.weibo.com/oauth2/access_token?client_id={0}&client_secret={1}&grant_type=authorization_code&redirect_uri=http://www.muzicm.cn/login?&code={2}'.format(settings.CLIENT_ID, settings.APP_SECRET, code)
+    access_token_url = 'https://api.weibo.com/oauth2/access_token?client_id={0}&client_secret={1}&grant_type=authorization_code&redirect_uri=http://www.muzicm.cn/login&code={2}'.format(settings.CLIENT_ID, settings.APP_SECRET, code)
     ret = requests.post(access_token_url)
     data = ret.text
     data_dict = json.loads(data)
