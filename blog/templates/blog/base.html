@@ -5,17 +5,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <link rel="shortcut icon" href="/media/muzicm_favicon.ico" type="image/x-icon">
     <title>{% block title %}基础模板{% endblock title %}</title>
 
-    <!-- Bootstrap -->
     <link href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}" rel="stylesheet">
 
     {% block css %}
     {% endblock css %}
 
-    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
-    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
     <!--[if lt IE 9]>
       <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
@@ -25,7 +22,6 @@
 
 <nav class="navbar navbar-default">
     <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                     data-target="#my-nav" aria-expanded="false">
@@ -34,13 +30,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/blog/">我的博客</a>
+            <a class="navbar-brand" href="/">木子窗明</a>
         </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="my-nav">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">博客</a></li>
+                <li class="active"><a href="{% url 'blog:blog_index' %}">博客</a></li>
                 <li><a href="/aboutme/">关于博主</a></li>
                 <li><a href="/callme/">联系我们</a></li>
                 <li><a href="#">小项目</a></li>
@@ -58,8 +53,6 @@
                     {{ request.session.screen_name }}
                     <a href="/logout/?next={{ request.path }}"><i class="glyphicon glyphicon-log-out"></i>&nbsp;&nbsp;注销</a>
                 {% else %}
-                    {#                                        <img src="/media/blog_images/1f31c3f23bf74228af5ea518c6cf36c6_th.jpg" class="img-rounded"#}
-                    {#                                             style="width: 30px; height: 30px;"/>#}
                     <li>
                         <a href="https://api.weibo.com/oauth2/authorize?client_id=2486056362&response_type=code&redirect_uri=http://www.muzicm.cn/login?next={{ request.path }}">
                             <i class="glyphicon glyphicon-log-in"></i> &nbsp;&nbsp;登录
@@ -68,21 +61,20 @@
                 {% endif %}
 
             </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+        </div>
+    </div>
 </nav>
 
 
 {% block content %}
 {% endblock content %}
 
-<div id="back-to-top" style="position: fixed; bottom: 100px; right: 50px; color: whitesmoke; background: #3ac57d; box-shadow: 5px 5px 5px #888888; border-radius: 2px; width: 50px; height: 50px; text-align: center;">
+<div id="back-to-top"
+     style="position: fixed; bottom: 100px; right: 50px; color: whitesmoke; background: #3ac57d; box-shadow: 5px 5px 5px #888888; border-radius: 2px; width: 50px; height: 50px; text-align: center;">
     <i class="glyphicon glyphicon-arrow-up" style="font-size: 20px; margin: 10px auto;"></i>
 </div>
 
-<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
 <script src="{% static 'jquery-3.2.1.min.js' %}"></script>
-<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
 <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
 <script>
     $("#back-to-top").click(function () {
@@ -92,6 +84,15 @@
 
 {% block script %}
 {% endblock script %}
+
+<div class="container-fluid">
+    <div class="col-md-12">
+        <ul class="text-center list-unstyled" style="width: 100%">
+            <li><span>Copyright &copy; <a href="http://www.muzicm.cn">木子窗明</a></span> |
+                <span><a href="http://www.miibeian.gov.cn/" target="_blank">粤ICP备18044144号</a></span></li>
+        </ul>
+    </div>
+</div>
 
 </body>
 </html>

@@ -3,7 +3,7 @@
 {% load comments %}
 
 {% block title %}
-    博客详细页面
+    木子窗明|{{ entry.title }}
 {% endblock title %}
 
 {% block css %}
@@ -149,11 +149,11 @@
 
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-3 ">
                 {% block toc %}
 
                     <div class="row">
-                        <div class="widget">
+                        <div class="widget hidden-xs hidden-sm">
                             <h3>博客目录</h3>
                             {{ entry.toc|safe }}
                         </div>
