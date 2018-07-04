@@ -7,7 +7,7 @@
 {% endblock title %}
 
 {% block css %}
-    <link href="{% static 'github.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/github.css' %}" rel="stylesheet"/>
 {% endblock css %}
 
 {% block content %}
@@ -137,7 +137,7 @@
                                     <em>{{ comment.submit_date }}</em>
                                     &nbsp;&nbsp;&nbsp;
                                     {% if request.session.login or request.user.is_authenticated %}
-                                    <a href="{% url 'blog:comment_reply' comment.id %}">回复</a>
+                                        <a href="{% url 'blog:comment_reply' comment.id %}">回复</a>
                                     {% endif %}
                                 </div>
                                 <br/>
@@ -150,6 +150,7 @@
             </div>
 
             <div class="col-md-3 ">
+
                 {% block toc %}
 
                     <div class="row">
@@ -159,7 +160,9 @@
                         </div>
                     </div>
                 {% endblock toc %}
+
                 {% include 'blog/right_side_bar.html' %}
+
             </div>
         </div>
     </div>

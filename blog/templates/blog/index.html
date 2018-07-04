@@ -11,7 +11,8 @@
                 {% if entries %}
                     {% for entry in entries %}
                         <br/>
-                        <h2><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h2>
+                        <h2><a href="{{ entry.get_absolute_url }}" style="text-decoration: none;">{{ entry.title }}</a>
+                        </h2>
 
                         <p>
                             <span>&nbsp;作者：{{ entry.author }}</span>

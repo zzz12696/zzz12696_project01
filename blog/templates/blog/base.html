@@ -9,6 +9,7 @@
     <title>{% block title %}基础模板{% endblock title %}</title>
 
     <link href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/blog.css' %}" rel="stylesheet">
 
     {% block css %}
     {% endblock css %}
@@ -19,6 +20,10 @@
     <![endif]-->
 </head>
 <body>
+
+
+<canvas id="c_n5" width="1304" height="628"
+        style="position: fixed; top: 0px; left: 0px; z-index: -1; opacity: 1.5;"></canvas>
 
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -66,33 +71,46 @@
 </nav>
 
 
-{% block content %}
-{% endblock content %}
+<div class="container-fluid">
 
-<div id="back-to-top"
-     style="position: fixed; bottom: 100px; right: 50px; color: whitesmoke; background: #3ac57d; box-shadow: 5px 5px 5px #888888; border-radius: 2px; width: 50px; height: 50px; text-align: center;">
-    <i class="glyphicon glyphicon-arrow-up" style="font-size: 20px; margin: 10px auto;"></i>
+    {% block content %}
+    {% endblock content %}
+
+    <div class="container-fluid">
+        <div class="col-md-12">
+            <ul class="text-center list-unstyled" style="height: 50px; padding-top: 15px">
+                <li><span>Copyright &copy; <a href="http://www.muzicm.cn">木子窗明</a></span> |
+                    <span><a href="http://www.miibeian.gov.cn/" target="_blank">粤ICP备18044144号</a></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
 </div>
 
-<script src="{% static 'jquery-3.2.1.min.js' %}"></script>
+
+<button class="gototop isvisible" style="display: inline-block;"><span>返回顶部</span></button>
+
+
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
 <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
-<script>
-    $("#back-to-top").click(function () {
-        window.scrollTo(0, 0);
+<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="99"
+        src="{% static 'js/canvas-nest.min.js' %}"></script>
+<script src="{% static 'js/jquery.gototop.js' %}"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".gototop").gototop({
+            position: 50,
+            duration: 1250,
+            visibleAt: 300,
+            classname: "isvisible"
+        });
     });
 </script>
 
+
 {% block script %}
 {% endblock script %}
-
-<div class="container-fluid">
-    <div class="col-md-12">
-        <ul class="text-center list-unstyled" style="width: 100%">
-            <li><span>Copyright &copy; <a href="http://www.muzicm.cn">木子窗明</a></span> |
-                <span><a href="http://www.miibeian.gov.cn/" target="_blank">粤ICP备18044144号</a></span></li>
-        </ul>
-    </div>
-</div>
 
 </body>
 </html>
