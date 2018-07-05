@@ -37,7 +37,8 @@
 
         <div class="collapse navbar-collapse" id="my-nav">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="{% url 'blog:blog_index' %}"><span class="glyphicon glyphicon-pencil"></span> 博客</a></li>
+                <li class="active"><a href="{% url 'blog:blog_index' %}"><span
+                        class="glyphicon glyphicon-pencil"></span> 博客</a></li>
                 <li><a href="/aboutme/"><span class="glyphicon glyphicon-user"></span> 关于博主</a></li>
                 <li><a href="/callme/"><span class="glyphicon glyphicon-earphone"></span> 联系我们</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-book"></span> 小项目</a></li>
@@ -73,11 +74,14 @@
     {% block content %}
     {% endblock content %}
 
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
     <div class="container-fluid">
         <div class="col-md-12">
             <ul class="text-center list-unstyled" style="height: 50px; padding-top: 15px">
                 <li><span>Copyright &copy; <a href="http://www.muzicm.cn">木子窗明</a></span> |
-                    <span><a href="http://www.miibeian.gov.cn/" target="_blank">粤ICP备18044144号</a></span>
+                    <span><a href="http://www.miibeian.gov.cn/" target="_blank">粤ICP备18044144号</a></span> |
+                    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
                 </li>
             </ul>
         </div>
