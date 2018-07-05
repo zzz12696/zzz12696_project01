@@ -1,6 +1,7 @@
 ## Hello, This is a simple blog system.
 
 ## 本系统采用 Python + Django + Django-comments + ckeditor + bootstrap + MySQL + Nginx + uwsgi 搭建。
+## 个人博客地址：[木子窗明(www.muzicm.cn)](http://www.muzicm.cn/)
 
 ### 功能
 
