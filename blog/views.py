@@ -19,7 +19,7 @@ def index(request):
         entries_count = entries.count()
         page_num = request.GET.get('page', 1)
         url_prefix = "/blog/?"
-        page_obj = Page(page_num=page_num, total_count=entries_count, per_page=5, url_prefix=url_prefix, max_page=5)
+        page_obj = Page(page_num=page_num, total_count=entries_count, per_page=10, url_prefix=url_prefix, max_page=5)
         entries = entries[page_obj.start:page_obj.end]
         page_html = page_obj.page_html()
         return render(request, 'blog/index.html', locals())
@@ -66,7 +66,7 @@ def category(request, category_id):
         entries_count = entries.count()
         page = request.GET.get('page', 1)
         url_prefix = "/blog/category/{}/?".format(category_id)
-        page_obj = Page(page_num=page, total_count=entries_count, per_page=5, url_prefix=url_prefix, max_page=5)
+        page_obj = Page(page_num=page, total_count=entries_count, per_page=10, url_prefix=url_prefix, max_page=5)
         entries = entries[page_obj.start:page_obj.end]
         page_html = page_obj.page_html()
 
@@ -87,7 +87,7 @@ def tag(request, tag_id):
         entries_count = entries.count()
         page = request.GET.get('page', 1)
         url_prefix = "/blog/tag/{}/?".format(tag_id)
-        page_obj = Page(page_num=page, total_count=entries_count, per_page=5, url_prefix=url_prefix, max_page=5)
+        page_obj = Page(page_num=page, total_count=entries_count, per_page=10, url_prefix=url_prefix, max_page=5)
         entries = entries[page_obj.start:page_obj.end]
         page_html = page_obj.page_html()
 
@@ -113,7 +113,7 @@ def search(request):
         total_count = entries.count()
         page_num = request.GET.get('page', 1)
         url_prefix = "/blog/search/?keyword={}".format(keyword)
-        page_obj = Page(page_num=page_num, total_count=total_count, per_page=5, url_prefix=url_prefix, max_page=5)
+        page_obj = Page(page_num=page_num, total_count=total_count, per_page=10, url_prefix=url_prefix, max_page=5)
         entries = entries[page_obj.start:page_obj.end]
         page_html = page_obj.page_html()
 
@@ -133,7 +133,7 @@ def archives(request, year, month):
         entries_count = entries.count()
         page = request.GET.get('page', 1)
         url_prefix = "/blog/archives/{0}/{1}/?".format(year, month)
-        page_obj = Page(page_num=page, total_count=entries_count, per_page=5, url_prefix=url_prefix, max_page=5)
+        page_obj = Page(page_num=page, total_count=entries_count, per_page=10, url_prefix=url_prefix, max_page=5)
         entries = entries[page_obj.start:page_obj.end]
         page_html = page_obj.page_html()
 
@@ -158,7 +158,7 @@ def page_error(request):
 def login(request):
     code = request.GET.get('code', None)
     if code is None:
-        return redirect('/blog/')
+        return redirect('/')
 
     access_token_url = 'https://api.weibo.com/oauth2/access_token?client_id={0}&client_secret={1}&grant_type=authorization_code&redirect_uri=http://www.muzicm.cn/login&code={2}'.format(settings.CLIENT_ID, settings.APP_SECRET, code)
     ret = requests.post(access_token_url)
@@ -171,6 +171,7 @@ def login(request):
     request.session['uid'] = uid
     request.session['login'] = True
 
+    # 获取用户信息
     user_info_url = 'https://api.weibo.com/2/users/show.json?access_token={0}&uid={1}'.format(token, uid)
     user_info = requests.get(user_info_url)
 
@@ -178,7 +179,7 @@ def login(request):
     request.session['screen_name'] = user_info_dict['screen_name']
     request.session['profile_image_url'] = user_info_dict['profile_image_url']
 
-    return redirect(request.GET.get('next', '/blog/'))
+    return redirect(request.GET.get('next', '/'))
 
 
 def logout(request):

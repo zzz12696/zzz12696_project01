@@ -22,8 +22,6 @@
 <body>
 
 
-<canvas id="c_n5" width="1304" height="628"
-        style="position: fixed; top: 0px; left: 0px; z-index: -1; opacity: 1.5;"></canvas>
 
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -40,10 +38,10 @@
 
         <div class="collapse navbar-collapse" id="my-nav">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="{% url 'blog:blog_index' %}">博客</a></li>
-                <li><a href="/aboutme/">关于博主</a></li>
-                <li><a href="/callme/">联系我们</a></li>
-                <li><a href="#">小项目</a></li>
+                <li class="active"><a href="{% url 'blog:blog_index' %}"><span class="glyphicon glyphicon-pencil"></span> 博客</a></li>
+                <li><a href="/aboutme/"><span class="glyphicon glyphicon-user"></span> 关于博主</a></li>
+                <li><a href="/callme/"><span class="glyphicon glyphicon-earphone"></span> 联系我们</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-book"></span> 小项目</a></li>
             </ul>
             <form class="navbar-form navbar-left" action="{% url 'blog:blog_search' %}" method="get">
                 <div class="form-group">
@@ -59,7 +57,7 @@
                     <a href="/logout/?next={{ request.path }}"><i class="glyphicon glyphicon-log-out"></i>&nbsp;&nbsp;注销</a>
                 {% else %}
                     <li>
-                        <a href="https://api.weibo.com/oauth2/authorize?client_id=2486056362&response_type=code&redirect_uri=http://www.muzicm.cn/login/?next={{ request.path }}">
+                        <a href="https://api.weibo.com/oauth2/authorize?client_id=2486056362&response_type=code&redirect_uri=http://www.muzicm.cn/login">
                             <i class="glyphicon glyphicon-log-in"></i> &nbsp;&nbsp;登录
                         </a>
                     </li>
@@ -94,8 +92,6 @@
 
 <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
 <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
-<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="99"
-        src="{% static 'js/canvas-nest.min.js' %}"></script>
 <script src="{% static 'js/jquery.gototop.js' %}"></script>
 <script type="text/javascript">
     $(function () {

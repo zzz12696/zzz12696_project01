@@ -8,36 +8,60 @@
     <div class="container">
         <div class="row">
             <div class="col-md-9">
+
                 {% if entries %}
                     {% for entry in entries %}
-                        <br/>
-                        <h2><a href="{{ entry.get_absolute_url }}" style="text-decoration: none;">{{ entry.title }}</a>
-                        </h2>
 
-                        <p>
-                            <span>&nbsp;作者：{{ entry.author }}</span>
-                            <span>&nbsp;发表时间：{{ entry.created_time }}</span>
-                            <span>&nbsp;浏览量：{{ entry.visiting }}</span>
-                        </p>
+                        <div class="blog-item" style="border: 1px solid #ddd; padding: 5px; border-radius: 10px;">
 
-                        {% if entry.img %}
-                            <img src="{{ entry.img.url }}" class="img-rounded" style="width: 400px; height: 200px;"/>
-                        {% else %}
-                        {% endif %}
 
-                        {% if entry.abstract %}
-                            <p>{{ entry.abstract }}</p>
-                        {% else %}
-                            <p>{{ entry.body|truncatechars:128 }}</p>
-                        {% endif %}
+
+
+
+                            <h4><a href="{{ entry.get_absolute_url }}"
+                                                            style="text-decoration: none;">{{ entry.title }}</a>
+                            </h4>
+
+                            {% if entry.img %}
+                                <img src="{{ entry.img.url }}" class="img-rounded"
+                                     style="width: auto; height: auto; max-width: 40%; max-height: 30%;"/>
+                            {% else %}
+                            {% endif %}
+
+                            {% if entry.abstract %}
+                                <p>{{ entry.abstract }}</p>
+                            {% else %}
+                                <p>{{ entry.body|truncatechars:128 }}</p>
+                            {% endif %}
+
+
+                            <div class="blog-tags"
+                                 style="font-size: 70%; color: #75878a; margin-top: 0.5em; display: inline-block; border-top: 1px #ddd solid;">
+                                <ul style="list-style-type: none; padding: 0px">
+                                    <li style="float: left; margin-right: 1em;">
+                                        <span class="glyphicon glyphicon-time"></span>
+                                        <span>{{ entry.created_time }}</span>
+                                    </li>
+                                    <li style="float: left; margin-right: 1em;">
+                                        阅读：{{ entry.visiting }}
+                                    </li>
+                                    <li style="float: left; margin-right: 1em;">
+                                        <span class="glyphicon glyphicon-tag"></span>
+                                        <a href="/blog/?tag=8">{{ entry.category.name }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     {% endfor %}
                 {% else %}
                     <div class="alert alert-info" role="alert">{{ error_msg }}</div>
                 {% endif %}
 
+
+
                 <hr/>
 
-                <nav aria-label="Page navigation">
+                <nav aria-label="Page navigation" class="text-center">
                     <ul class="pagination">
                         {{ page_html|safe }}
                     </ul>
