@@ -57,7 +57,7 @@
                     <a href="/logout/?next={{ request.path }}"><i class="glyphicon glyphicon-log-out"></i>&nbsp;&nbsp;注销</a>
                 {% else %}
                     <li>
-                        <a href="https://api.weibo.com/oauth2/authorize?client_id=2486056362&response_type=code&redirect_uri=http://www.muzicm.cn/login">
+                        <a href="https://api.weibo.com/oauth2/authorize?client_id=2486056362&response_type=code&redirect_uri=http://www.muzicm.cn/login?next={{ request.path }}">
                             <i class="glyphicon glyphicon-log-in"></i> &nbsp;&nbsp;登录
                         </a>
                     </li>
