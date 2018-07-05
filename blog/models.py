@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 
+from ckeditor_uploader.fields import RichTextUploadingField
+
 # Create your models here.
 
 
@@ -37,7 +39,7 @@ class Entry(models.Model):
 
     img = models.ImageField(upload_to='blog_images', null=True, blank=True, verbose_name='博客配图')
 
-    body = models.TextField(verbose_name='博客正文')
+    body = RichTextUploadingField(verbose_name='博客正文')
 
     abstract = models.TextField(max_length=256, blank=True, null=True, verbose_name='博客摘要')
 

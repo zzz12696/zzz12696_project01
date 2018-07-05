@@ -33,6 +33,7 @@ info_dict = {
 urlpatterns = [
     url(r'^$', blog_views.index),
     url(r'^admin/', admin.site.urls),
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^blog/', include('blog.urls')),
     url(r'^login/$', blog_views.login),
     url(r'^logout/$', blog_views.logout),

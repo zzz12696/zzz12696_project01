@@ -8,38 +8,63 @@
 
 {% block css %}
     <link href="{% static 'css/github.css' %}" rel="stylesheet"/>
+
+    <style type="text/css">
+    .blog-article img {
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+    }
+    </style>
+
+    <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+    <link href="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/atelier-dune.dark.css' %}" rel="stylesheet">
+    <script src="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %}"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
 {% endblock css %}
 
 {% block content %}
     <div class="container">
         <div class="row">
             <div class="col-md-9">
-                <h1>{{ entry.title }}</h1>
-                <p>
-                    <strong>{{ entry.author }}</strong>
-                    &nbsp;&nbsp;&nbsp;&nbsp;{{ entry.created_time|date:'Y年m月d日' }}
-                    &nbsp;&nbsp;&nbsp;&nbsp;分类：
-                    {% for category in entry.category.all %}
-                        &nbsp;&nbsp;<a href="{% url 'blog:blog_category' category.id %}">{{ category.name }}</a>
-                    {% endfor %}
-                    &nbsp;&nbsp;&nbsp;&nbsp;标签：
-                    {% for tag in entry.tags.all %}
-                        &nbsp;&nbsp;<a href="{% url 'blog:blog_tag' tag.id %}">{{ tag.name }}</a>&nbsp;&nbsp;
-                    {% endfor %}
-                    &nbsp;&nbsp;&nbsp;&nbsp;浏览量：{{ entry.visiting }}
-                </p>
+                <div class="panel panel-default blog-article">
+                    <div class="panel-heading">
+                        <h3>{{ entry.title }}</h3>
+                        <p>
+                            发布时间：
+                            {{ entry.created_time|date:'Y年m月d日' }}
+                            &nbsp;分类：
+                            {% for category in entry.category.all %}
+                                <a href="{% url 'blog:blog_category' category.id %}">{{ category.name }}</a>
+                            {% endfor %}
+                            &nbsp;标签：
+                            {% for tag in entry.tags.all %}
+                                <a href="{% url 'blog:blog_tag' tag.id %}">{{ tag.name }}</a>&nbsp;&nbsp;
+                            {% endfor %}
+                            &nbsp;浏览量：{{ entry.visiting }}
+                        </p>
+                    </div>
 
-                {% if entry.img %}
-                    <img src="{{ entry.img.url }}" class="img-rounded" style="width: auto; height: auto; max-width: 95%; max-height: 60%;"/>
-                {% else %}
-                {% endif %}
-                <hr/>
-                <p>
-                    {{ entry.body|safe }}
-                </p>
+                    <div class="panel-body">
+
+                        {% if entry.img %}
+                            <img src="{{ entry.img.url }}" class="img-rounded"
+                                 style=""/>
+                        {% else %}
+                        {% endif %}
+                        <p>
+                            {{ entry.body|safe }}
+                        </p>
+
+                    </div>
+
+                </div>
+
 
                 <div class="row">
-                    <hr/>
                     {% get_comment_form for entry as form %}
                     {% get_comment_count for entry as comment_count %}
                     <h3>评论总数：{{ comment_count }}</h3>
