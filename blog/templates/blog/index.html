@@ -10,30 +10,17 @@
             <div class="col-md-9">
 
                 {% if entries %}
-                    {% for entry in entries %}
-
-                        <div class="blog-item" style="border: 1px solid #ddd; padding: 5px; border-radius: 10px;">
-
-
-
-
-
+                    <div class="blog-item" style="border: 1px solid #eee; padding: 5px; border-radius: 10px;">
+                        {% for entry in entries %}
                             <h4><a href="{{ entry.get_absolute_url }}"
-                                                            style="text-decoration: none;">{{ entry.title }}</a>
+                                   style="text-decoration: none; font-size: 115%; font-weight: bold;">{{ entry.title }}</a>
                             </h4>
 
-                            {% if entry.img %}
-                                <img src="{{ entry.img.url }}" class="img-rounded"
-                                     style="width: auto; height: auto; max-width: 40%; max-height: 30%;"/>
-                            {% else %}
-                            {% endif %}
-
                             {% if entry.abstract %}
-                                <p>{{ entry.abstract }}</p>
+                                <p style="color: #777; font-size: small;">{{ entry.abstract }}</p>
                             {% else %}
-                                <p>{{ entry.body|truncatechars:128 }}</p>
+                                <p style="color: #777; font-size: small;">{{ entry.body|truncatechars:128 }}</p>
                             {% endif %}
-
 
                             <div class="blog-tags"
                                  style="font-size: 70%; color: #75878a; margin-top: 0.5em; display: inline-block; border-top: 1px #ddd solid;">
@@ -47,19 +34,19 @@
                                     </li>
                                     <li style="float: left; margin-right: 1em;">
                                         <span class="glyphicon glyphicon-tag"></span>
-                                        <a href="/blog/?tag=8">{{ entry.category.name }}</a>
+                                        {% for category in entry.category.all %}
+                                            <a href="{% url 'blog:blog_category' category.id %}"
+                                               style="text-decoration: none">{{ category.name }}</a>
+                                        {% endfor %}
                                     </li>
                                 </ul>
                             </div>
-                        </div>
-                    {% endfor %}
+                            <hr style="margin: 15px -5px; border: 1px solid #eee;"/>
+                        {% endfor %}
+                    </div>
                 {% else %}
                     <div class="alert alert-info" role="alert">{{ error_msg }}</div>
                 {% endif %}
-
-
-
-                <hr/>
 
                 <nav aria-label="Page navigation" class="text-center">
                     <ul class="pagination">
