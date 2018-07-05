@@ -124,15 +124,14 @@
                                         {% endif %}
                                         <i class="glyphicon glyphicon-share-alt"></i>
                                         {{ comment.parent_comment.user_name }}
-                                        {{ request.user }}
                                     {% else %}
-                                        By&nbsp;&nbsp;
+                                        By&nbsp;
                                         {% if comment.user_name %}
                                             {{ comment.user_name }}
                                         {% else %}
                                             {{ request.user }}
                                         {% endif %}
-                                        &nbsp;&nbsp;&nbsp;On&nbsp;&nbsp;
+                                        &nbsp;On&nbsp;
                                     {% endif %}
                                     <em>{{ comment.submit_date }}</em>
                                     &nbsp;&nbsp;&nbsp;
