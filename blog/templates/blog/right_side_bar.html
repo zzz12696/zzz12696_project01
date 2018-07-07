@@ -18,13 +18,13 @@
                 <div class="alert alert-success" role="alert">
                     <a href="{{ entry.get_absolute_url }}" style="text-decoration: none;">{{ entry.title }}</a>
                     <br/>
-                    {{ entry.author }}发表于：{{ entry.created_time|date:"Y年m月d日 f" }}
+                    发表于：{{ entry.created_time|date:"Y年m月d日 H:i" }}
                 </div>
             {% else %}
                 <div class="alert alert-success" role="alert" style="margin-top: -18px">
                     <a href="{{ entry.get_absolute_url }}" style="text-decoration: none;">{{ entry.title }}</a>
                     <br/>
-                    {{ entry.author }}发表于：{{ entry.created_time|date:"Y年m月d日 f" }}
+                    发表于：{{ entry.created_time|date:"Y年m月d日 H:i" }}
                 </div>
             {% endif %}
         {% endfor %}
@@ -42,7 +42,7 @@
                        style="text-decoration: none;">{{ entry.title }}</a>&nbsp;<span class="badge"
                                                                                        style="background-color: salmon">{{ entry.visiting }}</span>
                     <br/>
-                    {{ entry.author }}发表于：{{ entry.created_time|date:"Y年m月d日 f" }}
+                    发表于：{{ entry.created_time|date:"Y年m月d日 H:i" }}
                 </div>
             {% else %}
                 <div class="alert alert-success" role="alert" style="margin-top: -18px">
@@ -50,7 +50,7 @@
                        style="text-decoration: none;">{{ entry.title }}</a>&nbsp;<span class="badge"
                                                                                        style="background-color: salmon">{{ entry.visiting }}</span>
                     <br/>
-                    {{ entry.author }}发表于：{{ entry.created_time|date:"Y年m月d日 f" }}
+                    发表于：{{ entry.created_time|date:"Y年m月d日 H:i" }}
                 </div>
             {% endif %}
         {% endfor %}
